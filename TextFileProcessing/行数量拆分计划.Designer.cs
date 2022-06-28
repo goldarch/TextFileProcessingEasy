@@ -40,12 +40,12 @@ namespace TextFileProcessingEasy
             this.button1 = new System.Windows.Forms.Button();
             this.button拆分 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.ucSingleFileSelect1 = new UcSingleFileSelect();
+            this.button关于 = new System.Windows.Forms.Button();
+            this.ucSingleFileSelect1 = new TextFileProcessingEasy.MyControl.UcSingleFileSelect();
             this.label2 = new System.Windows.Forms.Label();
-            this.ucSingleFolderSelect1 = new UcSingleFolderSelect();
+            this.ucSingleFolderSelect1 = new TextFileProcessingEasy.MyControl.UcSingleFolderSelect();
             this.comboBox文本编码 = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.button关于 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,9 +97,9 @@ namespace TextFileProcessingEasy
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(14, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 12);
+            this.label1.Size = new System.Drawing.Size(209, 12);
             this.label1.TabIndex = 42;
-            this.label1.Text = "请选择文件：";
+            this.label1.Text = "请选择文件（或拖动文件到输入框）：";
             // 
             // button1
             // 
@@ -134,6 +134,19 @@ namespace TextFileProcessingEasy
             this.panel1.Size = new System.Drawing.Size(730, 38);
             this.panel1.TabIndex = 47;
             // 
+            // button关于
+            // 
+            this.button关于.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.button关于.Image = global::TextFileProcessingEasy.Properties.Resources.About;
+            this.button关于.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button关于.Location = new System.Drawing.Point(9, 7);
+            this.button关于.Name = "button关于";
+            this.button关于.Size = new System.Drawing.Size(81, 23);
+            this.button关于.TabIndex = 46;
+            this.button关于.Text = "关于";
+            this.button关于.UseVisualStyleBackColor = false;
+            this.button关于.Click += new System.EventHandler(this.button关于_Click);
+            // 
             // ucSingleFileSelect1
             // 
             this.ucSingleFileSelect1.FileDialogFilter = null;
@@ -148,9 +161,9 @@ namespace TextFileProcessingEasy
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(10, 155);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.Size = new System.Drawing.Size(269, 12);
             this.label2.TabIndex = 48;
-            this.label2.Text = "输出目录";
+            this.label2.Text = "输出目录（可选择目录或拖动目标目录到输入框）";
             // 
             // ucSingleFolderSelect1
             // 
@@ -181,19 +194,6 @@ namespace TextFileProcessingEasy
             this.label4.Size = new System.Drawing.Size(53, 12);
             this.label4.TabIndex = 51;
             this.label4.Text = "文本编码";
-            // 
-            // button关于
-            // 
-            this.button关于.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button关于.Image = global::TextFileProcessingEasy.Properties.Resources.About;
-            this.button关于.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button关于.Location = new System.Drawing.Point(9, 7);
-            this.button关于.Name = "button关于";
-            this.button关于.Size = new System.Drawing.Size(81, 23);
-            this.button关于.TabIndex = 46;
-            this.button关于.Text = "关于";
-            this.button关于.UseVisualStyleBackColor = false;
-            this.button关于.Click += new System.EventHandler(this.button关于_Click);
             // 
             // 行数量拆分计划
             // 
