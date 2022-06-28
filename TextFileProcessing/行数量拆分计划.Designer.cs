@@ -41,11 +41,11 @@ namespace TextFileProcessingEasy
             this.button拆分 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button关于 = new System.Windows.Forms.Button();
-            this.ucSingleFileSelect1 = new TextFileProcessingEasy.MyControl.UcSingleFileSelect();
             this.label2 = new System.Windows.Forms.Label();
-            this.ucSingleFolderSelect1 = new TextFileProcessingEasy.MyControl.UcSingleFolderSelect();
             this.comboBox文本编码 = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.ucSingleFolderSelect1 = new TextFileProcessingEasy.MyControl.UcSingleFolderSelect();
+            this.ucSingleFileSelect1 = new TextFileProcessingEasy.MyControl.UcSingleFileSelect();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,9 +81,9 @@ namespace TextFileProcessingEasy
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 92);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(77, 12);
+            this.label3.Size = new System.Drawing.Size(317, 12);
             this.label3.TabIndex = 39;
-            this.label3.Text = "输出名称模板";
+            this.label3.Text = "输出名称模板（名称中\"{0}”为自增序号部分，不可缺失）";
             // 
             // textBoxFileNameTemplate
             // 
@@ -147,15 +147,6 @@ namespace TextFileProcessingEasy
             this.button关于.UseVisualStyleBackColor = false;
             this.button关于.Click += new System.EventHandler(this.button关于_Click);
             // 
-            // ucSingleFileSelect1
-            // 
-            this.ucSingleFileSelect1.FileDialogFilter = null;
-            this.ucSingleFileSelect1.FileDialogTitle = null;
-            this.ucSingleFileSelect1.Location = new System.Drawing.Point(12, 24);
-            this.ucSingleFileSelect1.Name = "ucSingleFileSelect1";
-            this.ucSingleFileSelect1.Size = new System.Drawing.Size(700, 22);
-            this.ucSingleFileSelect1.TabIndex = 46;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -164,14 +155,6 @@ namespace TextFileProcessingEasy
             this.label2.Size = new System.Drawing.Size(269, 12);
             this.label2.TabIndex = 48;
             this.label2.Text = "输出目录（可选择目录或拖动目标目录到输入框）";
-            // 
-            // ucSingleFolderSelect1
-            // 
-            this.ucSingleFolderSelect1.Location = new System.Drawing.Point(12, 170);
-            this.ucSingleFolderSelect1.Name = "ucSingleFolderSelect1";
-            this.ucSingleFolderSelect1.SelectedPath = "";
-            this.ucSingleFolderSelect1.Size = new System.Drawing.Size(700, 22);
-            this.ucSingleFolderSelect1.TabIndex = 49;
             // 
             // comboBox文本编码
             // 
@@ -194,6 +177,23 @@ namespace TextFileProcessingEasy
             this.label4.Size = new System.Drawing.Size(53, 12);
             this.label4.TabIndex = 51;
             this.label4.Text = "文本编码";
+            // 
+            // ucSingleFolderSelect1
+            // 
+            this.ucSingleFolderSelect1.Location = new System.Drawing.Point(12, 170);
+            this.ucSingleFolderSelect1.Name = "ucSingleFolderSelect1";
+            this.ucSingleFolderSelect1.SelectedPath = "";
+            this.ucSingleFolderSelect1.Size = new System.Drawing.Size(700, 22);
+            this.ucSingleFolderSelect1.TabIndex = 49;
+            // 
+            // ucSingleFileSelect1
+            // 
+            this.ucSingleFileSelect1.FileDialogFilter = null;
+            this.ucSingleFileSelect1.FileDialogTitle = null;
+            this.ucSingleFileSelect1.Location = new System.Drawing.Point(12, 24);
+            this.ucSingleFileSelect1.Name = "ucSingleFileSelect1";
+            this.ucSingleFileSelect1.Size = new System.Drawing.Size(700, 22);
+            this.ucSingleFileSelect1.TabIndex = 46;
             // 
             // 行数量拆分计划
             // 

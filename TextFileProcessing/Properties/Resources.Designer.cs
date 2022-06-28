@@ -69,5 +69,13 @@ namespace TextFileProcessingEasy.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        /// </summary>
+        internal static string AboutMe {
+            get {
+                return ResourceManager.GetString("AboutMe", resourceCulture);
+            }
+        }
     }
 }
