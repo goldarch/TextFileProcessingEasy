@@ -215,7 +215,7 @@ namespace TextFileProcessingEasy
             this.Controls.Add(this.textBoxSpliteString);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "行数量拆分计划";
-            this.Text = "行数量拆分计划 -- GoldArch 金软架构";
+            this.Text = "行数量拆分计划 -- 金软(GoldArch)：打造黄金品质的软件架构";
             this.Load += new System.EventHandler(this.拆分行数计划_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

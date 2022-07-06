@@ -63,7 +63,7 @@ namespace TextFileProcessingEasy
             this.copyrightLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.copyrightLabel.Size = new System.Drawing.Size(850, 19);
             this.copyrightLabel.TabIndex = 51;
-            this.copyrightLabel.Text = "Copyright © 2022  GoldArch 金软架构";
+            this.copyrightLabel.Text = "Copyright © 2022  金软(GoldArch)：打造黄金品质的软件架构";
             this.copyrightLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // versionLabel

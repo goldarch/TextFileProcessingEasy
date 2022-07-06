@@ -69,7 +69,7 @@ namespace TextFileProcessingEasy
 			<p style='margin-top: 0px'>
 				<p style='font-size:14px;'>
 					<strong>
-						关于金软：GoldArch--打造黄金品质的软件架构
+						金软(GoldArch)：打造黄金品质的软件架构
 					</strong>
 				</p>
 				<p>
