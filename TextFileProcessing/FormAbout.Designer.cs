@@ -46,7 +46,7 @@ namespace TextFileProcessingEasy
             this.productLabel.Location = new System.Drawing.Point(10, 23);
             this.productLabel.Margin = new System.Windows.Forms.Padding(0, 10, 0, 10);
             this.productLabel.Name = "productLabel";
-            this.productLabel.Size = new System.Drawing.Size(740, 19);
+            this.productLabel.Size = new System.Drawing.Size(850, 19);
             this.productLabel.TabIndex = 46;
             this.productLabel.Text = "文本文件按行数分切";
             this.productLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -57,11 +57,11 @@ namespace TextFileProcessingEasy
             | System.Windows.Forms.AnchorStyles.Right)));
             this.copyrightLabel.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.copyrightLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(146)))), ((int)(((byte)(124)))), ((int)(((byte)(76)))));
-            this.copyrightLabel.Location = new System.Drawing.Point(10, 537);
+            this.copyrightLabel.Location = new System.Drawing.Point(14, 624);
             this.copyrightLabel.Margin = new System.Windows.Forms.Padding(0, 10, 0, 10);
             this.copyrightLabel.Name = "copyrightLabel";
             this.copyrightLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.copyrightLabel.Size = new System.Drawing.Size(740, 19);
+            this.copyrightLabel.Size = new System.Drawing.Size(850, 19);
             this.copyrightLabel.TabIndex = 51;
             this.copyrightLabel.Text = "Copyright © 2022  GoldArch 金软架构";
             this.copyrightLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -75,14 +75,15 @@ namespace TextFileProcessingEasy
             this.versionLabel.Margin = new System.Windows.Forms.Padding(0);
             this.versionLabel.Name = "versionLabel";
             this.versionLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.versionLabel.Size = new System.Drawing.Size(740, 19);
+            this.versionLabel.Size = new System.Drawing.Size(850, 19);
             this.versionLabel.TabIndex = 50;
             this.versionLabel.Text = "version";
             this.versionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // wbMain
             // 
-            this.wbMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.wbMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.wbMain.IsWebBrowserContextMenuEnabled = false;
             this.wbMain.Location = new System.Drawing.Point(9, 74);
@@ -90,7 +91,7 @@ namespace TextFileProcessingEasy
             this.wbMain.MinimumSize = new System.Drawing.Size(100, 100);
             this.wbMain.Name = "wbMain";
             this.wbMain.ScriptErrorsSuppressed = true;
-            this.wbMain.Size = new System.Drawing.Size(742, 448);
+            this.wbMain.Size = new System.Drawing.Size(852, 527);
             this.wbMain.TabIndex = 52;
             this.wbMain.TabStop = false;
             // 
@@ -109,7 +110,7 @@ namespace TextFileProcessingEasy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(760, 566);
+            this.ClientSize = new System.Drawing.Size(870, 662);
             this.Controls.Add(this.wbMain);
             this.Controls.Add(this.logoPictureBox);
             this.Controls.Add(this.copyrightLabel);
@@ -117,7 +118,7 @@ namespace TextFileProcessingEasy
             this.Controls.Add(this.productLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FormAbout";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "关于";
             this.Load += new System.EventHandler(this.FormAbout_Load);
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
