@@ -44,9 +44,16 @@ namespace TextFileProcessingEasy
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox文本编码 = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.comboBox原始分隔符 = new System.Windows.Forms.ComboBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox分隔符转换 = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.comboBox目标分隔符 = new System.Windows.Forms.ComboBox();
             this.ucSingleFolderSelect1 = new TextFileProcessingEasy.MyControl.UcSingleFolderSelect();
             this.ucSingleFileSelect1 = new TextFileProcessingEasy.MyControl.UcSingleFileSelect();
             this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label8
@@ -129,7 +136,7 @@ namespace TextFileProcessingEasy
             this.panel1.Controls.Add(this.button关于);
             this.panel1.Controls.Add(this.button拆分);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 267);
+            this.panel1.Location = new System.Drawing.Point(0, 369);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(730, 38);
             this.panel1.TabIndex = 47;
@@ -174,9 +181,84 @@ namespace TextFileProcessingEasy
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(14, 195);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 12);
+            this.label4.Size = new System.Drawing.Size(149, 12);
             this.label4.TabIndex = 51;
-            this.label4.Text = "文本编码";
+            this.label4.Text = "文本编码(默认utf-8 编码)";
+            // 
+            // comboBox原始分隔符
+            // 
+            this.comboBox原始分隔符.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox原始分隔符.FormattingEnabled = true;
+            this.comboBox原始分隔符.Items.AddRange(new object[] {
+            "",
+            "一空格",
+            "四空格",
+            "一分号",
+            "一逗号"});
+            this.comboBox原始分隔符.Location = new System.Drawing.Point(95, 30);
+            this.comboBox原始分隔符.Name = "comboBox原始分隔符";
+            this.comboBox原始分隔符.Size = new System.Drawing.Size(121, 20);
+            this.comboBox原始分隔符.TabIndex = 53;
+            this.comboBox原始分隔符.TextChanged += new System.EventHandler(this.comboBox原始分隔符_TextChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.checkBox分隔符转换);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.comboBox目标分隔符);
+            this.groupBox1.Controls.Add(this.comboBox原始分隔符);
+            this.groupBox1.Location = new System.Drawing.Point(14, 263);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(704, 71);
+            this.groupBox1.TabIndex = 54;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "分隔符转换";
+            // 
+            // checkBox分隔符转换
+            // 
+            this.checkBox分隔符转换.AutoSize = true;
+            this.checkBox分隔符转换.Location = new System.Drawing.Point(449, 33);
+            this.checkBox分隔符转换.Name = "checkBox分隔符转换";
+            this.checkBox分隔符转换.Size = new System.Drawing.Size(84, 16);
+            this.checkBox分隔符转换.TabIndex = 57;
+            this.checkBox分隔符转换.Text = "分隔符转换";
+            this.checkBox分隔符转换.UseVisualStyleBackColor = true;
+            this.checkBox分隔符转换.CheckedChanged += new System.EventHandler(this.checkBox分隔符转换_CheckedChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(226, 33);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(65, 12);
+            this.label7.TabIndex = 56;
+            this.label7.Text = "目标分隔符";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(10, 33);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(65, 12);
+            this.label6.TabIndex = 55;
+            this.label6.Text = "原始分隔符";
+            // 
+            // comboBox目标分隔符
+            // 
+            this.comboBox目标分隔符.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox目标分隔符.FormattingEnabled = true;
+            this.comboBox目标分隔符.Items.AddRange(new object[] {
+            "",
+            "一空格",
+            "四空格",
+            "一分号",
+            "一逗号"});
+            this.comboBox目标分隔符.Location = new System.Drawing.Point(301, 30);
+            this.comboBox目标分隔符.Name = "comboBox目标分隔符";
+            this.comboBox目标分隔符.Size = new System.Drawing.Size(121, 20);
+            this.comboBox目标分隔符.TabIndex = 54;
+            this.comboBox目标分隔符.TextChanged += new System.EventHandler(this.comboBox目标分隔符_TextChanged);
             // 
             // ucSingleFolderSelect1
             // 
@@ -199,7 +281,8 @@ namespace TextFileProcessingEasy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(730, 305);
+            this.ClientSize = new System.Drawing.Size(730, 407);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.comboBox文本编码);
             this.Controls.Add(this.ucSingleFolderSelect1);
@@ -218,6 +301,8 @@ namespace TextFileProcessingEasy
             this.Text = "行数量拆分计划 -- 金软(GoldArch)：打造黄金品质的软件架构";
             this.Load += new System.EventHandler(this.拆分行数计划_Load);
             this.panel1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -239,5 +324,11 @@ namespace TextFileProcessingEasy
         private System.Windows.Forms.ComboBox comboBox文本编码;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button关于;
+        private System.Windows.Forms.ComboBox comboBox原始分隔符;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox comboBox目标分隔符;
+        private System.Windows.Forms.CheckBox checkBox分隔符转换;
     }
 }

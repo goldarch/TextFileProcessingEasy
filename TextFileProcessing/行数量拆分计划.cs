@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -26,9 +28,16 @@ namespace TextFileProcessingEasy
             //"获取文件的名称没有后缀："
             var nameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
             //str = "获取路径的后缀扩展名称：" + Path.GetExtension(filePath); //-->.xml
-            var extension = Path.GetExtension(filePath);
+            //自带"."
+            var fileExtension = Path.GetExtension(filePath);
 
-            var template = $"{nameWithoutExtension}_Splite{{0}}{extension}";
+            var 分隔符转换信息 = "";
+            if (checkBox分隔符转换.Checked)
+            {
+                分隔符转换信息 = $"(分隔符转换_{comboBox原始分隔符.Text}_转_{comboBox目标分隔符.Text})";
+            }
+
+            var template = $"{nameWithoutExtension}{分隔符转换信息}_Splite{{0}}{fileExtension}";
 
             textBoxFileNameTemplate.Text = template;
 
@@ -142,7 +151,7 @@ namespace TextFileProcessingEasy
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(textBoxSpliteString.Text))
+            if (string.IsNullOrWhiteSpace(textBoxSpliteString.Text) && !checkBox分隔符转换.Checked)
             {
                 MessageBox.Show(@"拆分计划不能为空", @"警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -160,19 +169,44 @@ namespace TextFileProcessingEasy
                 return;
             }
 
-            //要判断拆分数据合法性
-            var strArray = textBoxSpliteString.Text.Trim(',').Split(',');
-
-            //验证非零的正整数
-            Regex regex = new Regex("^\\+?[1-9][0-9]*$");
-            foreach (string s in strArray)
+            if (checkBox分隔符转换.Checked && (string.IsNullOrWhiteSpace(comboBox原始分隔符.Text) ||
+                                          string.IsNullOrWhiteSpace(comboBox目标分隔符.Text)))
             {
-                if (!regex.IsMatch(s))
-                {
-                    MessageBox.Show(@"拆分计划不规范，请检查", @"警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                MessageBox.Show(@"原始分隔符和目标分隔符不能为空", @"警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
+
+            if (checkBox分隔符转换.Checked && comboBox原始分隔符.Text == comboBox目标分隔符.Text)
+            {
+                MessageBox.Show(@"原始分隔符和目标分隔符相同，不需要转换", @"警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var arrayList = new ArrayList();
+
+            if (checkBox分隔符转换.Checked && string.IsNullOrWhiteSpace(textBoxSpliteString.Text))
+            {
+                arrayList.Add(int.MaxValue.ToString());
+            }
+            else
+            {
+                //要判断拆分数据合法性
+                var strArray = textBoxSpliteString.Text.Trim(',').Split(',');
+
+                //验证非零的正整数
+                Regex regex = new Regex("^\\+?[1-9][0-9]*$");
+                foreach (string s in strArray)
+                {
+                    if (!regex.IsMatch(s))
+                    {
+                        MessageBox.Show(@"拆分计划不规范，请检查", @"警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+
+                arrayList.AddRange(strArray);
+            }
+
 
             //var fileSuffix = 0;
 
@@ -183,14 +217,18 @@ namespace TextFileProcessingEasy
 
             //}
 
+            //检查是否需要分隔符转换
+            CheckDelimiterConversion();
+
             var list = new List<string>();
             var no = 0;
             //批次标识,防止多次制作，产生意外，比如，第一次测试做了三个分段，而第二次测试做了二个分段！那么第一次的第三个文件，如果没有批准标识，则会容易让人造成失误！
             var batchId = DateTime.Now.ToString("yyyyMMdd-HHmmss");
+
             using (var fie = File.OpenRead(ucSingleFileSelect1.SelectedPath))
             using (var reader = new StreamReader(fie))
             {
-                var large = Convert.ToInt32(strArray[0]);
+                var large = Convert.ToInt32(arrayList[0]);
                 //扫尾
                 var windUp = false;
                 while (!reader.EndOfStream)
@@ -200,15 +238,15 @@ namespace TextFileProcessingEasy
                     //今后，可以做一个是否为空的参数设置
                     if (!string.IsNullOrWhiteSpace(s))
                     {
-                        list.Add(s);
+                        list.Add(DelimiterConversion(s));
                     }
 
                     //dx:当正好=large时，写入一个文件，并且重置list
                     if (!windUp && list.Count >= large)
                     {
-                        list = ListToFile(list, no, batchId);
+                        list = WriteLinesToFile(list, no, batchId);
 
-                        if (strArray.Length == ++no)
+                        if (arrayList.Count == ++no)
                         {
                             //最后未定义的数量,全部扫尾
                             windUp = true;
@@ -216,7 +254,7 @@ namespace TextFileProcessingEasy
                         else
                         {
                             //no已经++了！
-                            large = Convert.ToInt32(strArray[no]);
+                            large = Convert.ToInt32(arrayList[no]);
                         }
                     }
                 }
@@ -225,7 +263,7 @@ namespace TextFileProcessingEasy
             //收尾的部分
             if (list.Count > 0)
             {
-                ListToFile(list, no, batchId);
+                WriteLinesToFile(list, no, batchId);
             }
 
 
@@ -239,26 +277,107 @@ namespace TextFileProcessingEasy
             MessageBox.Show(@"拆分完成", @"信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private List<string> ListToFile(List<string> list, int no, string batchId)
+        private List<string> WriteLinesToFile(List<string> list, int no, string batchId)
         {
-            var shortFile = string.Format(textBoxFileNameTemplate.Text, $"({batchId})({no})(N{list.Count})");
+            //no是从0开始的，转成从1开始
+            var shortFile = string.Format(textBoxFileNameTemplate.Text, $"({batchId})({no+1})(N{list.Count})");
             var fullFileName = Path.Combine(ucSingleFolderSelect1.SelectedPath, shortFile);
             if (string.IsNullOrWhiteSpace(comboBox文本编码.Text))
             {
+                //https://learn.microsoft.com/zh-cn/dotnet/api/system.io.file.writealllines?view=net-7.0
+                //此方法的默认行为 WriteAllLines(String, IEnumerable<String>) 是使用 utf-8 编码而不使用字节顺序标记 (BOM) 来写出数据。
+                //如果需要在文件的开头包含 UTF-8 标识符，如字节顺序标记，请将 WriteAllLines(String, IEnumerable<String>, Encoding) 方法重载用于 UTF8 编码。
                 File.WriteAllLines(fullFileName, list);
             }
             else
             {
-                File.WriteAllLines(fullFileName, list,Encoding.GetEncoding(comboBox文本编码.Text));
+                File.WriteAllLines(fullFileName, list, Encoding.GetEncoding(comboBox文本编码.Text));
             }
 
             list = new List<string>();
             return list;
         }
 
+        ///// <summary>
+        ///// 关注性能问题
+        ///// 因每次转换都是重新求值，观察性能问题
+        ///// </summary>
+        ///// <param name="originalStr"></param>
+        ///// <returns></returns>
+        //string DelimiterConversion(string originalStr)
+        //{
+        //    var delimiterList = new List<KeyValuePair<string, string>>()
+        //    {
+        //        new KeyValuePair<string, string>("一空格", " "),
+        //        new KeyValuePair<string, string>("四空格", "    "),
+        //        new KeyValuePair<string, string>("一分号", ";")
+        //    };
+
+        //    var originalDelimiterChar = delimiterList.FirstOrDefault(o => o.Key == comboBox原始分隔符.Text).Value;
+        //    var targetDelimiterChar = delimiterList.FirstOrDefault(o => o.Key == comboBox目标分隔符.Text).Value;
+
+        //    var replace = originalStr.Replace(originalDelimiterChar, targetDelimiterChar);
+
+        //    return replace;
+        //}
+
+        //用一个不可能重复的字符设置原始分隔符，防止意外替换
+        private string _originalDelimiterChar = "31A533B7-2231-4137-A05B-AA3CD571FEEB";
+        private string _targetDelimiterChar = "";
+        bool isDelimiterConversion = false;
+
+        void GetDelimiter()
+        {
+            var delimiterList = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("一空格", " "),
+                new KeyValuePair<string, string>("四空格", "    "),
+                new KeyValuePair<string, string>("一分号", ";"),
+                new KeyValuePair<string, string>("一逗号", ",")
+            };
+
+            _originalDelimiterChar = delimiterList.FirstOrDefault(o => o.Key == comboBox原始分隔符.Text).Value;
+            _targetDelimiterChar = delimiterList.FirstOrDefault(o => o.Key == comboBox目标分隔符.Text).Value;
+        }
+
+        string DelimiterConversion(string originalStr)
+        {
+            if (!isDelimiterConversion)
+            {
+                //直接返回字符
+                return originalStr;
+            }
+            var replace = originalStr.Replace(_originalDelimiterChar, _targetDelimiterChar);
+            return replace;
+        }
+
+        void CheckDelimiterConversion()
+        {
+            if (checkBox分隔符转换.Checked)
+            {
+                isDelimiterConversion = true;
+                GetDelimiter();
+            }
+        }
+
         private void button关于_Click(object sender, EventArgs e)
         {
             new FormAbout().ShowDialog(this);
+        }
+
+        private void comboBox原始分隔符_TextChanged(object sender, EventArgs e)
+        {
+            AfterFileSelected(ucSingleFileSelect1.SelectedPath);
+        }
+
+        private void comboBox目标分隔符_TextChanged(object sender, EventArgs e)
+        {
+            AfterFileSelected(ucSingleFileSelect1.SelectedPath);
+        }
+
+        private void checkBox分隔符转换_CheckedChanged(object sender, EventArgs e)
+        {
+            AfterFileSelected(ucSingleFileSelect1.SelectedPath);
         }
     }
 }
