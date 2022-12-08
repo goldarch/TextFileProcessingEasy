@@ -7,3 +7,5 @@
 按5000,4000,2000,2000的计划，则分出三个文件，分别为5000行的，4000行的和1000行的文件，不够分的计划不起作用。  
   
 ![image](https://raw.githubusercontent.com/goldarch/TextFileProcessingEasy/master/image/Animation.gif)  
+
+2022.12.08 在生产实践中，有些喷码机的分隔符固定，不能自定义分隔符，有些客户发来的文件需要转换分隔符。故加入分隔符转换功能。
